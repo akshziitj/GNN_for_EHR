@@ -151,6 +151,7 @@ class VariationalGNN(nn.Module):
             self.in_att[i].initialize()
 
     def data_to_edges(self, data):
+        data = data.bool()
         length = data.size()[0]
         nonzero = data.nonzero()
         if nonzero.size()[0] == 0:
