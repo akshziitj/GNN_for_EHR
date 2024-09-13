@@ -82,7 +82,7 @@ def main():
         ratio = Counter(train_y)
         train_loader = DataLoader(dataset=EHRData(train_x, train_y), batch_size=BATCH_SIZE,
                                   collate_fn=collate_fn, num_workers=torch.cuda.device_count(), shuffle=True)
-        pos_weight = torch.ones(1).float().to(device) * (ratio[True] / ratio[False])
+        pos_weight = torch.ones(1).float().to(device) * (ratio[False] / ratio[True])
         criterion = nn.BCEWithLogitsLoss(reduction="sum", pos_weight=pos_weight)
         t = tqdm(iter(train_loader), leave=False, total=len(train_loader))
         model.train()
